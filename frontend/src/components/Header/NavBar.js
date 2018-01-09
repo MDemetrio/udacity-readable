@@ -8,42 +8,56 @@ import MdKeyboardArrowRight from 'react-icons/lib/md/keyboard-arrow-right';
 const Container = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;  
+    margin: 0 auto;
+    max-width: 100%;
+    
+    @media (min-width: 700px) {
+        max-width: 80%;
+    }
+
+    @media (min-width: 1080px) {
+        max-width: 60%;
+    }
 `
 const IconButton = styled.button`
   background: none;
   border: none;
-  flex: 2 2 auto
 `
 
 const StyledLink = styled(Link) `
   color: #95989A;
   text-decoration: none;
   text-align: center;
-  font-size: 1em;
+  font-size: 18px;
 
   &:active {
     color: #812DCB;
   }
 `
 const TinySliderContainer = styled.div`
-  @media (max-width: 700px) {
-    width: 70%;
-}
+  flex: 2 1 auto;
 `
 
 class NavBar extends Component {
-    onGoTo = dir => this.ts.slider.goTo(dir)
+    onGoTo = dir => this.ts.slider.goTo(dir);
     render() {
+        const { categories } = this.props;
+        const categoriesLength = categories.length;
         const settings = {
             nav: false,
             mouseDrag: true,
             controls: false,
             loop: false,
-            items: 3,
             responsive: {
-                700: {
-                    items: 5
+                280: {
+                    items: categoriesLength >= 2 ? 2 : categoriesLength
+                },
+                480: {
+                    items: categoriesLength >= 3 ? 3 : categoriesLength
+                },
+                680: {
+                    items: categoriesLength >= 6 ? 6 : categoriesLength
                 }
             }
         }
@@ -52,14 +66,9 @@ class NavBar extends Component {
                 <IconButton type="button" onClick={() => this.onGoTo('prev')}><MdKeyboardArrowLeft size={30} /></IconButton>
                 <TinySliderContainer>
                     <TinySlider settings={settings} ref={ts => this.ts = ts}>
-                        <StyledLink to="/categories/1">Category 1</StyledLink>
-                        <StyledLink to="/categories/2">Category 2</StyledLink>
-                        <StyledLink to="/categories/3">Category 3</StyledLink>
-                        <StyledLink to="/categories/4">Category 4</StyledLink>
-                        <StyledLink to="/categories/5">Category 5</StyledLink>
-                        <StyledLink to="/categories/6">Category 6</StyledLink>
-                        <StyledLink to="/categories/7">Category 7</StyledLink>
-                        <StyledLink to="/categories/8">Category 8</StyledLink>
+                        {categories.map((c, index) => (
+                            <StyledLink key={index} to={`/categories/${c.path}`}>{c.name}</StyledLink>
+                        ))}
                     </TinySlider>
                 </TinySliderContainer>
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.svg';
+import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
+import { connect } from 'react-redux'
+import NavBar from './NavBar';
 
 const StyledLink = styled(Link) `
     display: flex;
@@ -15,15 +16,24 @@ const StyledImg = styled.img`
 
 class Header extends Component {
     render() {
+        const { categories } = this.props
         return (
             <div>
                 <StyledLink to="/">
                     <StyledImg src={logo} alt="readable-logo" />
                 </StyledLink>
-                <NavBar />
+                {categories.length > 0 &&
+                    <NavBar categories={categories} />
+                }
             </div>
         );
     }
 }
 
-export default Header;
+function mapStateToProps({ categories }) {
+    return {
+        categories: categories.categoriesList
+    }
+}
+
+export default connect(mapStateToProps)(Header)
