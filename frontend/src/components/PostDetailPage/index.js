@@ -6,7 +6,6 @@ class PostDetail extends Component {
     return (
       <div>
         <h1>Post {this.props.match.params.id}</h1>
-
       </div>
     );
   }
