@@ -16,12 +16,34 @@ const defaultData = {
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
-    timestamp: 1468479767190,
+    timestamp: 1448479767190,
     title: 'Learn Redux in 10 minutes!',
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: -10,
+    deleted: false,
+    commentCount: 0
+  },
+  "7gs5a9g3j7mf3233ldff": {
+    id: '7gs5a9g3j7mf3233ldff',
+    timestamp: 1368479767190,
+    title: 'Learn Everything in Udacity!!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'mdemetrio',
+    category: 'udacity',
+    voteScore: 15,
+    deleted: false,
+    commentCount: 0
+  },
+  "fds659g3j7mf3233fd64": {
+    id: 'fds659g3j7mf3233fd64',
+    timestamp: 1268479767190,
+    title: 'Tame React Component State',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'mdemetrio',
+    category: 'react',
+    voteScore: 50,
     deleted: false,
     commentCount: 0
   }
