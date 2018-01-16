@@ -1,32 +1,21 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { fetchCategories, loadPosts } from "../actions";
-import PropTypes from 'prop-types'
-import HomePage from './HomePage';
-import CategoriePage from './CategoriePage';
+import { Route, Switch } from 'react-router-dom';
+import PostsPage from './PostsPage';
 import PostDetailPage from './PostDetailPage';
+import PostCreatePage from './PostCreatePage';
+
 import Header from './Header';
 
 class App extends Component {
-  static propTypes = {
-    fetchCategories: PropTypes.func.isRequired,
-    loadPosts: PropTypes.func.isRequired
-  }
-
-  componentDidMount() {
-    this.props.fetchCategories();
-    this.props.loadPosts();
-  }
-
   render() {
     return (
       <div>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={PostsPage} />
+          <Route path="/categories/:id" component={PostsPage} />
           <Route path="/posts/:id" component={PostDetailPage} />
-          <Route path="/categories/:id" component={CategoriePage} />
+          <Route path="/new-post" component={PostCreatePage} />
           <Route render={() => (<h1>404</h1>)} />
         </Switch>
       </div>
@@ -34,11 +23,5 @@ class App extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    fetchCategories: () => dispatch(fetchCategories()),
-    loadPosts: () => dispatch(loadPosts())
-  }
-}
 
-export default withRouter(connect(undefined, mapDispatchToProps)(App))
+export default App;
