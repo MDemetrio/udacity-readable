@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import NavBar from './NavBar';
+import { fetchCategories } from "../../actions";
 
 const StyledLink = styled(Link) `
     display: flex;
@@ -15,6 +17,9 @@ const StyledImg = styled.img`
 `
 
 class Header extends Component {
+    componentDidMount() {
+        this.props.fetchCategories();
+      }
     render() {
         const { categories } = this.props
         return (
@@ -30,10 +35,22 @@ class Header extends Component {
     }
 }
 
+Header.propTypes = {
+    fetchCategories: PropTypes.func.isRequired,
+    categories: PropTypes.array.isRequired
+  }
+
 function mapStateToProps({ categories }) {
     return {
         categories: categories.categoriesList
     }
 }
 
-export default connect(mapStateToProps)(Header)
+function mapDispatchToProps (dispatch) {
+    return {
+      fetchCategories: () => dispatch(fetchCategories()),
+    }
+  }
+  
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
