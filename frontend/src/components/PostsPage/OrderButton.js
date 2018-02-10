@@ -13,7 +13,7 @@ const OrderButton = (props) => {
   const icon = orderBy.ascending ? <MdKeyboardArrowDown size={30} /> : <MdKeyboardArrowUp size={30} />;
 
   return (
-    <IconButton onClick={(e) => clickHandler(e, field)} >
+    <IconButton onClick={(e) => clickHandler(e, field)}>
       {field === orderBy.field && icon}
       {props.children}
     </IconButton>

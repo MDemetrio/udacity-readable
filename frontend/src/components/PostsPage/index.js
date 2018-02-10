@@ -5,6 +5,12 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import PostsList from "./PostList";
 import OrderButton from "./OrderButton";
+import styled from 'styled-components';
+
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
 
 function orderPosts(posts, orderBy) {
   posts.sort((a, b) => {
@@ -52,15 +58,15 @@ class PostsPage extends Component {
 
     return (
       <div>
-        <div>
+        <FilterContainer>
           <OrderButton clickHandler={this.changeOrder} field='voteScore' orderBy={orderBy}>
-            VoteScore
+            Votes
           </OrderButton>
 
           <OrderButton clickHandler={this.changeOrder} field='timestamp' orderBy={orderBy}>
             Date
           </OrderButton>
-        </div>
+        </FilterContainer>
 
         {sortedPosts &&
           <PostsList posts={sortedPosts} />
