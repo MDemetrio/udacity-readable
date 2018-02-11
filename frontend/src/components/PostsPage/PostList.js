@@ -5,6 +5,7 @@ import MdChatBubbleOutline from 'react-icons/lib/md/chat-bubble-outline';
 import MdClose from 'react-icons/lib/md/close';
 import MdEdit from 'react-icons/lib/md/edit';
 import { StyledLink, IconButton } from "../shared";
+import { Link } from 'react-router-dom';
 
 const BodyContainer = styled.div`
     margin: 16px 0;
@@ -39,7 +40,7 @@ const DownVoteIcon = () => (
 
 class PostsList extends Component {
     render() {
-        const { voteHandler, excludeHandler, editHandler } = this.props;
+        const { voteHandler, excludeHandler } = this.props;
         const posts = this.props.posts.map(p => ({
             createdAt: new Date(p.timestamp),
             ...p,
@@ -50,7 +51,7 @@ class PostsList extends Component {
                 {posts.map(p => (
                     <div key={p.id}>
 
-                        <StyledLink to={`/posts/${p.id}`} style={{ 'fontSize': '1.8em' }}>
+                        <StyledLink to={`/${p.category}/${p.id}`} style={{ 'fontSize': '1.8em' }}>
                             {p.title}
                         </StyledLink>
 
@@ -77,9 +78,11 @@ class PostsList extends Component {
                             </FooterItemContainer>
                             <FooterItemContainer>
 
-                                <IconButton onClick={(e) => editHandler(p.id)}>
-                                    <MdEdit />
-                                </IconButton>
+                                <Link to={`/edit-post/${p.id}`}>
+                                    <IconButton>
+                                        <MdEdit />
+                                    </IconButton>
+                                </Link>
 
                                 <IconButton onClick={(e) => excludeHandler(p.id)}>
                                     <MdClose />
@@ -95,10 +98,9 @@ class PostsList extends Component {
 }
 
 PostsList.propTypes = {
-    voteHandler: PropTypes.func.isRequired,  
+    voteHandler: PropTypes.func.isRequired,
     excludeHandler: PropTypes.func.isRequired,
-    editHandler: PropTypes.func.isRequired,
     posts: PropTypes.array.isRequired,
-  }
+}
 
 export default PostsList;

@@ -28,8 +28,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={PostsPage} />
             <Route path="/categories/:id" component={PostsPage} />
-            <Route path="/posts/:id" component={PostDetailPage} />
+            <Route path="/:category/:post_id" component={PostDetailPage} />
             <Route path="/new-post" component={PostCreatePage} />
+            <Route path="/edit-post/:id" component={PostCreatePage} />
             <Route render={() => (<h1>404</h1>)} />
           </Switch>
         </PageContainer>

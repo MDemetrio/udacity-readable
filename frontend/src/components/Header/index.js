@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import NavBar from './NavBar';
 import { fetchCategories } from "../../actions";
 
-const StyledLink = styled(Link) `
+const HomeLink = styled(Link) `
     display: flex;
     justify-content: center;
     margin: 16px;
@@ -24,9 +24,9 @@ class Header extends Component {
         const { categories } = this.props
         return (
             <div>
-                <StyledLink to="/">
+                <HomeLink to="/">
                     <StyledImg src={logo} alt="readable-logo" />
-                </StyledLink>
+                </HomeLink>
                 {categories.length > 0 &&
                     <NavBar categories={categories} />
                 }
