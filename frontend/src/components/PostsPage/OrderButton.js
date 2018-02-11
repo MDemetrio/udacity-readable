@@ -20,7 +20,7 @@ const OrderButton = (props) => {
   )
 }
 
-OrderButton.PropTypes = {
+OrderButton.propTypes = {
     clickHandler: PropTypes.func.isRequired, 
     field: PropTypes.string.isRequired, 
     orderBy: PropTypes.object.isRequired
