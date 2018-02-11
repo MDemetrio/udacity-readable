@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TinySlider from "tiny-slider-react";
 import MdKeyboardArrowLeft from 'react-icons/lib/md/keyboard-arrow-left';
 import MdKeyboardArrowRight from 'react-icons/lib/md/keyboard-arrow-right';
+import { StyledLink } from "../shared";
 
 const Container = styled.div`
     display: flex;
@@ -25,16 +25,6 @@ const IconButton = styled.button`
   border: none;
 `
 
-const StyledLink = styled(Link) `
-  color: #95989A;
-  text-decoration: none;
-  text-align: center;
-  font-size: 18px;
-
-  &:active {
-    color: #812DCB;
-  }
-`
 const TinySliderContainer = styled.div`
   flex: 2 1 auto;
 `
