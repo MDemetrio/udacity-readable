@@ -1,9 +1,17 @@
 const API_ROOT = 'http://localhost:3001'
 
-const callApi = (endpoint) => {
+const callApi = (endpoint, method = 'GET', body = null) => {
     const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
+    const options = {
+        method,
+        body: body && JSON.stringify(body),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'd537e828-4b6b-449c-970f-957efe738290'
+        })
+    }
 
-    return fetch(fullUrl, { headers: { 'Authorization': 'd537e828-4b6b-449c-970f-957efe738290' } })
+    return fetch(fullUrl, options)
         .then(response =>
             response.json().then(json => {
                 if (!response.ok) {
@@ -25,7 +33,7 @@ export default store => next => action => {
         return next(action)
     }
 
-    const { types, endpoint } = callAPI
+    const { types, endpoint, method, body } = callAPI
 
     if (typeof endpoint !== 'string') {
         throw new Error('Specify a string endpoint URL.')
@@ -46,7 +54,7 @@ export default store => next => action => {
     const [requestType, successType, failureType] = types
     next(actionWith({ type: requestType }))
 
-    return callApi(endpoint).then(
+    return callApi(endpoint, method, body).then(
         response => next(actionWith({
             response,
             type: successType
