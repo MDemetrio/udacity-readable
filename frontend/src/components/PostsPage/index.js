@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import { loadPosts } from "../../actions";
+import { loadPosts, postVote, deletePost } from "../../actions";
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import PostsList from "./PostList";
@@ -52,7 +52,7 @@ class PostsPage extends Component {
     }
   }
   render() {
-    const { posts } = this.props;
+    const { posts, postVote, deletePost } = this.props;
     const { orderBy } = this.state;
     const sortedPosts = orderPosts(posts, orderBy);
 
@@ -69,7 +69,7 @@ class PostsPage extends Component {
         </FilterContainer>
 
         {sortedPosts &&
-          <PostsList posts={sortedPosts} />
+          <PostsList posts={sortedPosts} voteHandler={postVote} excludeHandler={deletePost}/>
         }
       </div>
     );
@@ -77,7 +77,9 @@ class PostsPage extends Component {
 }
 
 PostsPage.propTypes = {
-  loadPosts: PropTypes.func.isRequired,
+  loadPosts: PropTypes.func.isRequired,  
+  postVote: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
   categoryId: PropTypes.string
 }
@@ -91,7 +93,9 @@ function mapStateToProps({ posts }, { match }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadPosts: (category) => dispatch(loadPosts(category))
+    loadPosts: category => dispatch(loadPosts(category)),
+    postVote: (post, vote) => dispatch(postVote(post, vote)),    
+    deletePost: postId => dispatch(deletePost(postId)),
   }
 }
 
