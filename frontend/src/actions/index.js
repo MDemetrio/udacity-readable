@@ -8,6 +8,10 @@ export const GET_POSTS_REQUEST = 'GET_POSTS_REQUEST'
 export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
 export const GET_POSTS_FAILURE = 'GET_POSTS_FAILURE'
 
+export const GET_POST_REQUEST = 'GET_POST_REQUEST'
+export const GET_POST_SUCCESS = 'GET_POST_SUCCESS'
+export const GET_POST_FAILURE = 'GET_POST_FAILURE'
+
 export const POST_POSTVOTE_REQUEST = 'POST_POSTS_REQUEST'
 export const POST_POSTVOTE_SUCCESS = 'POST_POSTS_SUCCESS'
 export const POST_POSTVOTE_FAILURE = 'POST_POSTS_FAILURE'
@@ -16,6 +20,9 @@ export const DELETE_POSTS_REQUEST = 'DELETE_POSTS_REQUEST'
 export const DELETE_POSTS_SUCCESS = 'DELETE_POSTS_SUCCESS'
 export const DELETE_POSTS_FAILURE = 'DELETE_POSTS_FAILURE'
 
+export const GET_COMMENTS_REQUEST = 'GET_COMMENTS_REQUEST'
+export const GET_COMMENTS_SUCCESS = 'GET_COMMENTS_SUCCESS'
+export const GET_COMMENTS_FAILURE = 'GET_COMMENTS_FAILURE'
 
 export const COMMENTS_SUCCESS = 'COMMENTS_SUCCESS'
 
@@ -50,6 +57,23 @@ export const loadPosts = category => (dispatch, getState) => {
     }
 }
 
+export const loadPost = (id) => {
+    return ({
+        [CALL_API]: {
+            types: [GET_POST_REQUEST, GET_POST_SUCCESS, GET_POST_FAILURE],
+            endpoint: `/posts/${id}`
+        }
+    })
+}
+
+export const loadComments = (postId) => {
+    return ({
+        [CALL_API]: {
+            types: [GET_COMMENTS_REQUEST, GET_COMMENTS_SUCCESS, GET_COMMENTS_FAILURE],
+            endpoint: `/posts/${postId}/comments`
+        }
+    })
+}
 
 export const postVote = (id, option) => {
     return ({

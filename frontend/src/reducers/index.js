@@ -26,9 +26,11 @@ const categories = (state = { categoriesList: [] }, action) => {
     }
 }
 
-const posts = (state = { postsList: [] }, action) => {
+const posts = (state = { postsList: [], selectedPost: { comments: [] } }, action) => {
     switch (action.type) {
         case ActionTypes.GET_POSTS_REQUEST:
+        case ActionTypes.GET_POST_REQUEST:
+        case ActionTypes.GET_COMMENTS_REQUEST:
         case ActionTypes.POST_POSTVOTE_REQUEST:
         case ActionTypes.DELETE_POSTS_REQUEST:
             return {
@@ -36,25 +38,42 @@ const posts = (state = { postsList: [] }, action) => {
                 isFetching: true
             };
         case ActionTypes.GET_POSTS_FAILURE:
+        case ActionTypes.GET_POST_FAILURE:
+        case ActionTypes.GET_COMMENTS_FAILURE:
+        case ActionTypes.POST_POSTVOTE_FAILURE:
         case ActionTypes.DELETE_POSTS_FAILURE:
             return {
                 ...state,
                 error: action.error,
                 isFetching: false
             }
-
         case ActionTypes.GET_POSTS_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
                 postsList: action.response
             }
-
+        case ActionTypes.GET_POST_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                selectedPost: action.response
+            }
+        case ActionTypes.GET_COMMENTS_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                selectedPost: {
+                    ...state.selectedPost,
+                    comments: action.response
+                }
+            }
         case ActionTypes.POST_POSTVOTE_SUCCESS:
             return {
                 ...state,
                 isFetching: false,
-                postsList: updateObjectInArray(state.postsList, action)
+                postsList: updateObjectInArray(state.postsList, action),
+                selectedPost: action.response
             }
         case ActionTypes.DELETE_POSTS_SUCCESS:
             return {
@@ -67,15 +86,9 @@ const posts = (state = { postsList: [] }, action) => {
     }
 }
 
-const comments = (state = { comments: [] }, action) => {
-
-    return state
-}
-
 const rootReducer = combineReducers({
     categories,
-    posts,
-    comments
+    posts
 })
 
 export default rootReducer;
