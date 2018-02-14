@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import MdChatBubbleOutline from 'react-icons/lib/md/chat-bubble-outline';
 import MdClose from 'react-icons/lib/md/close';
 import MdEdit from 'react-icons/lib/md/edit';
-import { StyledLink, StyledTitle, IconButton, UpVoteIcon, DownVoteIcon, FooterContainer, FooterItemContainer } from "../shared";
+import { StyledLink, StyledTitle, IconButton, UpVoteIcon, DownVoteIcon, FooterContainer, FooterItemContainer } from "./shared";
 import { Link } from 'react-router-dom';
 import Panel from 'muicss/lib/react/panel';
 

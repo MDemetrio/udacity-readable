@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { orderArray } from "../../utils/helpers";
 import MdClose from 'react-icons/lib/md/close';
 import MdEdit from 'react-icons/lib/md/edit';
-import { IconButton, UpVoteIcon, DownVoteIcon, FooterContainer, FooterItemContainer, BodyContainer } from "../shared";
-import { deleteComment, commentVote, postComment, putComment } from "../../actions";
+import { IconButton, UpVoteIcon, DownVoteIcon, FooterContainer, FooterItemContainer, BodyContainer } from "./shared";
+import { deleteComment, commentVote, postComment, putComment } from "../actions";
 import CommentForm from "./CommentForm";
-import { guid } from "../../utils/helpers";
+import { guid, orderArray } from "../utils/helpers";
 import Button from 'muicss/lib/react/button';
 import Panel from 'muicss/lib/react/panel';
 

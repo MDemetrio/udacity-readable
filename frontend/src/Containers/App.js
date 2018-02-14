@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PostsPage from './PostsPage';
 import PostDetailPage from './PostDetailPage';
 import PostCreatePage from './PostCreatePage';
-import Header from './Header';
+import Header from '../components/Header';
 import styled from 'styled-components';
 
 const PageContainer = styled.div`

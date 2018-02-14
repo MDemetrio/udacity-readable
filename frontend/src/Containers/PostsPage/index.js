@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { loadPosts, postVote, deletePost } from "../../actions";
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
-import PostsList from "./PostList";
-import OrderButton from "./OrderButton";
-import { FilterContainer, StyledLink } from "../shared";
+import PostsList from "../../components/PostList";
+import OrderButton from "../../components/OrderButton"
+import { FilterContainer, StyledLink } from "../../components/shared";
 import { orderArray } from "../../utils/helpers";
 import Button from 'muicss/lib/react/button';
 
