@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom';
 import { postVote, deletePost, loadPost, loadComments } from "../../actions";
 import CommentsList from "./CommentsList";
+import Panel from 'muicss/lib/react/panel';
 
 class PostDetail extends Component {
   state = {
@@ -20,7 +21,7 @@ class PostDetail extends Component {
       if (response.id)
         this.props.loadComments(this.props.postId);
       else
-        this.setState({deleted: true})
+        this.setState({ deleted: true })
     })
   }
 
@@ -37,7 +38,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    const { selectedPost } = this.props;
+    const { selectedPost, postId } = this.props;
     const { deleted } = this.state;
 
     const p = {
@@ -47,46 +48,49 @@ class PostDetail extends Component {
 
     return deleted === true ? <Redirect to='/' /> : (
       <div>
-        <StyledTitle>
-          {p.title}
-        </StyledTitle>
+        <Panel>
+          <StyledTitle>
+            {p.title}
+          </StyledTitle>
 
-        <BodyContainer>{p.body}</BodyContainer>
+          <BodyContainer>{p.body}</BodyContainer>
 
-        <FooterContainer>
-          <div>{p.author}, {p.createdAt.toDateString()}</div>
+          <FooterContainer>
+            <div>{p.author}, {p.createdAt.toDateString()}</div>
 
-          <FooterItemContainer>
-            {p.commentCount}
-            <MdChatBubbleOutline />
-          </FooterItemContainer>
+            <FooterItemContainer>
+              {p.voteScore}
 
-          <FooterItemContainer>
-            {p.voteScore}
-
-            <IconButton onClick={(e) => this.voteHandler(e, p.id, "upVote")}>
-              <UpVoteIcon />
-            </IconButton>
-
-            <IconButton onClick={(e) => this.voteHandler(e, p.id, "downVote")}>
-              <DownVoteIcon />
-            </IconButton>
-          </FooterItemContainer>
-
-          <FooterItemContainer>
-            <Link to={`/edit-post/${p.id}`}>
-              <IconButton>
-                <MdEdit />
+              <IconButton onClick={(e) => this.voteHandler(e, p.id, "upVote")}>
+                <UpVoteIcon />
               </IconButton>
-            </Link>
 
-            <IconButton onClick={(e) => this.excludeHandler(e, p.id)}>
-              <MdClose />
-            </IconButton>
-          </FooterItemContainer>
-        </FooterContainer>
+              <IconButton onClick={(e) => this.voteHandler(e, p.id, "downVote")}>
+                <DownVoteIcon />
+              </IconButton>
+            </FooterItemContainer>
 
-        {selectedPost.comments && <CommentsList postComments={selectedPost.comments} />}
+            <FooterItemContainer>
+              <Link to={`/edit-post/${p.id}`}>
+                <IconButton>
+                  <MdEdit />
+                </IconButton>
+              </Link>
+
+              <IconButton onClick={(e) => this.excludeHandler(e, p.id)}>
+                <MdClose />
+              </IconButton>
+            </FooterItemContainer>
+          </FooterContainer>
+        </Panel>
+        <div style={{ margin: '48px 0px' }}>
+          <StyledTitle style={{ 'fontSize': '1.5em' }}>
+            {`${p.commentCount} Comments`}
+            <MdChatBubbleOutline />
+          </StyledTitle>
+
+          {p.comments && <CommentsList postId={postId} postComments={p.comments} />}
+        </div>
       </div>
     );
   }
