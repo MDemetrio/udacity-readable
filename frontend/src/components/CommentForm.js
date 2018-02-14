@@ -45,8 +45,8 @@ class CommentForm extends Component {
         return (
             <Panel>
                 <Form onSubmit={this.handleSubmit}>
-                    <Input label='Author' floatingLabel type="text" name="author" value={this.state.comment.author} onChange={this.handleChange} />
-                    <Textarea label='Body' floatingLabel name='body' value={this.state.comment.body} onChange={this.handleChange} />
+                    <Input required label='Author' floatingLabel type="text" name="author" value={this.state.comment.author} onChange={this.handleChange} />
+                    <Textarea required label='Body' floatingLabel name='body' value={this.state.comment.body} onChange={this.handleChange} />
 
                     <Button variant="raised">Submit</Button>
                 </Form>
