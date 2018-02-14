@@ -4,9 +4,8 @@ import MdChatBubbleOutline from 'react-icons/lib/md/chat-bubble-outline';
 import MdClose from 'react-icons/lib/md/close';
 import MdEdit from 'react-icons/lib/md/edit';
 import { IconButton, UpVoteIcon, DownVoteIcon, StyledTitle, FooterContainer, FooterItemContainer, BodyContainer } from "../../components/shared";
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 import { postVote, deletePost, loadPost, loadComments } from "../../actions";
 import CommentsList from "../../components/CommentsList";
 import Panel from 'muicss/lib/react/panel';

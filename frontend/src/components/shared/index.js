@@ -35,13 +35,7 @@ export const FooterContainer = styled.div`
     font-size: 0.9em;
     color: #95989A;
 
-    @media (min-width: 450px) {
-        min-width: 450px;
-    }
 
-    @media (min-width: 700px) {
-        min-width: 700px;
-    }
 `
 
 export const FooterItemContainer = styled.div`
