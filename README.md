@@ -1,4 +1,4 @@
-This project is my submission for Udacity's React & Redux course.
+This project is my submission for Udacity's React & Redux course. Readable is a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
 
 Some of the main packages used in this project besides react, redux, react-redux and react-router include:
 
@@ -26,26 +26,13 @@ Run ``` npm install ``` to install project dependencies, then
 
 Run ``` npm start ``` to start the local dev server.
 
-You will also need to follow the instructions below to start the node server that the react app interact with:
-
 # Readable API Server
-
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
-
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
-
-## Start Developing
-
-To get started developing right away:
+You will also need to follow the instructions below to start the node server that the react webapp interact with:
 
 * Install and start the API server
     - `cd api-server`
     - `npm install`
     - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
 
 ## API Server
 
