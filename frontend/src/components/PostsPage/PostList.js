@@ -1,96 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import styled from 'styled-components';
 import MdChatBubbleOutline from 'react-icons/lib/md/chat-bubble-outline';
 import MdClose from 'react-icons/lib/md/close';
 import MdEdit from 'react-icons/lib/md/edit';
-import { StyledLink, IconButton } from "../shared";
+import { StyledLink, StyledTitle, IconButton, UpVoteIcon, DownVoteIcon, FooterContainer, FooterItemContainer } from "../shared";
 import { Link } from 'react-router-dom';
-
-const BodyContainer = styled.div`
-    margin: 16px 0;
-    color: #95989A;
-`
-
-const FooterContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-    color: #95989A;
-`
-
-const FooterItemContainer = styled.div`
-    display: flex;
-    font-size: 1.2em;
-`
-
-const UpVoteIcon = () => (
-    <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="1225 522 20 16">
-        <path fill="#000" d="M12,7.77,18.39,18H5.61L12,7.77M12,4,2,20H22Z" transform="translate(1223 518)" />
-    </svg>
-
-);
-
-const DownVoteIcon = () => (
-    <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" viewBox="1249 522 20 16">
-        <path fill="#000" d="M12,7.77,18.39,18H5.61L12,7.77M12,4,2,20H22Z" transform="translate(1271 542) rotate(180)" />
-    </svg>
-);
-
+import Panel from 'muicss/lib/react/panel';
 
 class PostsList extends Component {
     render() {
-        const { voteHandler, excludeHandler } = this.props;
-        const posts = this.props.posts.map(p => ({
-            createdAt: new Date(p.timestamp),
-            ...p,
+        const { posts, voteHandler, excludeHandler } = this.props;
+        const p = posts.map(post => ({
+            createdAt: new Date(post.timestamp),
+            ...post,
         }));
 
         return (
             <ul>
-                {posts.map(p => (
-                    <div key={p.id}>
-
-                        <StyledLink to={`/${p.category}/${p.id}`} style={{ 'fontSize': '1.8em' }}>
-                            {p.title}
-                        </StyledLink>
-
-                        <BodyContainer>{p.body}</BodyContainer>
+                {p.map(post => (
+                    <Panel key={post.id}>
+                        <StyledTitle>
+                            <StyledLink to={`/${post.category}/${post.id}`}>
+                                {post.title}
+                            </StyledLink>
+                        </StyledTitle>
 
                         <FooterContainer>
-                            <div>{p.author}, {p.createdAt.toDateString()}</div>
+                            <div>{post.author}, {post.createdAt.toDateString()}</div>
 
                             <FooterItemContainer>
-                                {p.commentCount}
+                                {post.commentCount}
                                 <MdChatBubbleOutline />
                             </FooterItemContainer>
 
                             <FooterItemContainer>
-                                {p.voteScore}
+                                {post.voteScore}
 
-                                <IconButton onClick={(e) => voteHandler(p.id, "upVote")}>
+                                <IconButton onClick={(e) => voteHandler(e, post.id, "upVote")}>
                                     <UpVoteIcon />
                                 </IconButton>
 
-                                <IconButton onClick={(e) => voteHandler(p.id, "downVote")}>
+                                <IconButton onClick={(e) => voteHandler(e, post.id, "downVote")}>
                                     <DownVoteIcon />
                                 </IconButton>
                             </FooterItemContainer>
                             <FooterItemContainer>
 
-                                <Link to={`/edit-post/${p.id}`}>
+                                <Link to={`/edit-post/${post.id}`}>
                                     <IconButton>
                                         <MdEdit />
                                     </IconButton>
                                 </Link>
 
-                                <IconButton onClick={(e) => excludeHandler(p.id)}>
+                                <IconButton onClick={(e) => excludeHandler(e, post.id)}>
                                     <MdClose />
                                 </IconButton>
                             </FooterItemContainer>
                         </FooterContainer>
                         <br />
-                    </div>
+                    </Panel>
                 ))}
             </ul>
         );
