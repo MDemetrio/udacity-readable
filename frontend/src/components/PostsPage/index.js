@@ -5,25 +5,9 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import PostsList from "./PostList";
 import OrderButton from "./OrderButton";
-import styled from 'styled-components';
-
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`
-
-function orderPosts(posts, orderBy) {
-  posts.sort((a, b) => {
-    const result = a[orderBy.field] > b[orderBy.field];
-
-    if (orderBy.ascending) {
-      return result ? -1 : 1;
-    } else {
-      return result ? 1 : -1;
-    }
-  })
-  return posts;
-}
+import { FilterContainer, StyledLink } from "../shared";
+import { orderArray } from "../../utils/helpers";
+import Button from 'muicss/lib/react/button';
 
 class PostsPage extends Component {
   state = {
@@ -31,6 +15,16 @@ class PostsPage extends Component {
       field: 'voteScore',
       ascending: true
     }
+  }
+
+  voteHandler = (e, postId, vote) => {
+    e.preventDefault();
+    this.props.postVote(postId, vote)
+  }
+
+  excludeHandler = (e, postId) => {
+    e.preventDefault();
+    this.props.deletePost(postId)
   }
 
   changeOrder = (e, field) => {
@@ -52,24 +46,31 @@ class PostsPage extends Component {
     }
   }
   render() {
-    const { posts, postVote, deletePost } = this.props;
+    const { posts } = this.props;
     const { orderBy } = this.state;
-    const sortedPosts = orderPosts(posts, orderBy);
+    const sortedPosts = orderArray(posts, orderBy);
 
     return (
       <div>
-        <FilterContainer>
-          <OrderButton clickHandler={this.changeOrder} field='voteScore' orderBy={orderBy}>
-            Votes
+        <div style={{ 'display': 'flex', 'justifyContent': 'space-between', 'alignItems': 'baseline' }}>
+          <StyledLink to='/new-post/'>
+            <Button>
+              New Post
+            </Button>
+          </StyledLink>
+
+          <FilterContainer>
+            <OrderButton clickHandler={this.changeOrder} field='voteScore' orderBy={orderBy}>
+              Votes
           </OrderButton>
 
-          <OrderButton clickHandler={this.changeOrder} field='timestamp' orderBy={orderBy}>
-            Date
+            <OrderButton clickHandler={this.changeOrder} field='timestamp' orderBy={orderBy}>
+              Date
           </OrderButton>
-        </FilterContainer>
-
+          </FilterContainer>
+        </div>
         {sortedPosts &&
-          <PostsList posts={sortedPosts} voteHandler={postVote} excludeHandler={deletePost}/>
+          <PostsList posts={sortedPosts} voteHandler={this.voteHandler} excludeHandler={this.excludeHandler} />
         }
       </div>
     );
@@ -77,7 +78,7 @@ class PostsPage extends Component {
 }
 
 PostsPage.propTypes = {
-  loadPosts: PropTypes.func.isRequired,  
+  loadPosts: PropTypes.func.isRequired,
   postVote: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   posts: PropTypes.array.isRequired,
@@ -94,7 +95,7 @@ function mapStateToProps({ posts }, { match }) {
 function mapDispatchToProps(dispatch) {
   return {
     loadPosts: category => dispatch(loadPosts(category)),
-    postVote: (post, vote) => dispatch(postVote(post, vote)),    
+    postVote: (post, vote) => dispatch(postVote(post, vote)),
     deletePost: postId => dispatch(deletePost(postId)),
   }
 }
